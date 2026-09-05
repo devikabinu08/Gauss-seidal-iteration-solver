@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gauss-Seidel Method Calculator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            margin-top: 25px;
+        }
+
+        .matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 350px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .vector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 350px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #222;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        .error {
+            color: #c62828;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .results {
+            margin-top: 30px;
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #222;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f5f5f5;
+        }
+
+        .iteration-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 7px;
+        }
+
+        .answer {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 15px;
+                padding: 18px;
+            }
+
+            .matrix,
+            .vector {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Gauss-Seidel Method</h1>
+
+    <p class="description">
+        Solve a 3×3 system of linear equations using the Gauss-Seidel
+        iterative method.
+    </p>
+
+    <h2>1. Coefficient Matrix A</h2>
+
+    <div class="matrix">
+        <input type="number" id="a11" placeholder="A11">
+        <input type="number" id="a12" placeholder="A12">
+        <input type="number" id="a13" placeholder="A13">
+
+        <input type="number" id="a21" placeholder="A21">
+        <input type="number" id="a22" placeholder="A22">
+        <input type="number" id="a23" placeholder="A23">
+
+        <input type="number" id="a31" placeholder="A31">
+        <input type="number" id="a32" placeholder="A32">
+        <input type="number" id="a33" placeholder="A33">
+    </div>
+
+
+    <h2>2. Constant Vector B</h2>
+
+    <div class="vector">
+        <input type="number" id="b1" placeholder="B1">
+        <input type="number" id="b2" placeholder="B2">
+        <input type="number" id="b3" placeholder="B3">
+    </div>
+
+
+    <h2>3. Initial Guess</h2>
+
+    <div class="vector">
+        <input type="number" id="x0" placeholder="x₀" value="0">
+        <input type="number" id="y0" placeholder="y₀" value="0">
+        <input type="number" id="z0" placeholder="z₀" value="0">
+    </div>
+
+
+    <button onclick="calculate()">
+        Calculate 10 Iterations
+    </button>
+
+    <p id="error" class="error"></p>
+
+
+    <div id="results" class="results">
+
+        <h2>Iteration Results</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Iteration</th>
+                    <th>x</th>
+                    <th>y</th>
+                    <th>z</th>
+                </tr>
+            </thead>
+
+            <tbody id="resultTable">
+            </tbody>
+        </table>
+
+
+        <div class="iteration-box">
+
+            <h2>View Particular Iteration</h2>
+
+            <label>
+                Select iteration:
+            </label>
+
+            <select id="iterationSelect"
+                    onchange="showIteration()">
+            </select>
+
+            <div id="answer" class="answer">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let iterations = [];
+
+
+function getValue(id) {
+    return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculate() {
+
+    document.getElementById("error").innerText = "";
+
+    // Matrix A
+    let A = [
+        [getValue("a11"), getValue("a12"), getValue("a13")],
+        [getValue("a21"), getValue("a22"), getValue("a23")],
+        [getValue("a31"), getValue("a32"), getValue("a33")]
+    ];
+
+    // Vector B
+    let B = [
+        getValue("b1"),
+        getValue("b2"),
+        getValue("b3")
+    ];
+
+    // Initial guess
+    let x = getValue("x0");
+    let y = getValue("y0");
+    let z = getValue("z0");
+
+
+    // Check for empty/invalid input
+    let allValues = [
+        ...A.flat(),
+        ...B,
+        x, y, z
+    ];
+
+    if (allValues.some(value => isNaN(value))) {
+        document.getElementById("error").innerText =
+            "Please enter all values.";
+        return;
+    }
+
+
+    // Check diagonal elements
+    if (A[0][0] === 0 ||
+        A[1][1] === 0 ||
+        A[2][2] === 0) {
+
+        document.getElementById("error").innerText =
+            "Diagonal elements cannot be zero.";
+
+        return;
+    }
+
+
+    iterations = [];
+
+
+    // Gauss-Seidel iterations
+    for (let i = 1; i <= 10; i++) {
+
+        x = (
+            B[0]
+            - A[0][1] * y
+            - A[0][2] * z
+        ) / A[0][0];
+
+
+        y = (
+            B[1]
+            - A[1][0] * x
+            - A[1][2] * z
+        ) / A[1][1];
+
+
+        z = (
+            B[2]
+            - A[2][0] * x
+            - A[2][1] * y
+        ) / A[2][2];
+
+
+        iterations.push({
+            iteration: i,
+            x: x,
+            y: y,
+            z: z
+        });
+    }
+
+
+    displayResults();
+}
+
+
+function displayResults() {
+
+    let table =
+        document.getElementById("resultTable");
+
+    table.innerHTML = "";
+
+
+    iterations.forEach(row => {
+
+        let tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${row.iteration}</td>
+            <td>${row.x.toFixed(6)}</td>
+            <td>${row.y.toFixed(6)}</td>
+            <td>${row.z.toFixed(6)}</td>
+        `;
+
+        table.appendChild(tr);
+    });
+
+
+    // Fill iteration dropdown
+    let select =
+        document.getElementById("iterationSelect");
+
+    select.innerHTML = "";
+
+    iterations.forEach(row => {
+
+        let option =
+            document.createElement("option");
+
+        option.value = row.iteration;
+        option.textContent =
+            "Iteration " + row.iteration;
+
+        select.appendChild(option);
+    });
+
+
+    document.getElementById("results")
+        .style.display = "block";
+
+
+    showIteration();
+}
+
+
+function showIteration() {
+
+    let selected =
+        parseInt(
+            document.getElementById(
+                "iterationSelect"
+            ).value
+        );
+
+
+    let result =
+        iterations[selected - 1];
+
+
+    document.getElementById("answer").innerHTML = `
+        <p>Iteration ${selected}</p>
+
+        <p>x = ${result.x.toFixed(6)}</p>
+        <p>y = ${result.y.toFixed(6)}</p>
+        <p>z = ${result.z.toFixed(6)}</p>
+    `;
+}
+
+</script>
+
+</body>
+</html>
