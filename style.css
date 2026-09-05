@@ -1,0 +1,709 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+
+/* =========================================
+   PAGE BACKGROUND
+========================================= */
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 5% 10%,
+            rgba(20, 184, 166, 0.22),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 95% 15%,
+            rgba(6, 182, 212, 0.20),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 90%,
+            rgba(132, 204, 22, 0.16),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #ecfeff,
+            #f0fdfa,
+            #f7fee7
+        );
+
+    color: #134e4a;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: 45px auto;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.header h1 {
+    font-size: 42px;
+    font-weight: 800;
+
+    background: linear-gradient(
+        90deg,
+        #0f766e,
+        #0891b2,
+        #65a30d
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    margin-bottom: 10px;
+}
+
+.header p {
+    color: #64748b;
+    font-size: 17px;
+}
+
+
+/* =========================================
+   CARDS
+========================================= */
+
+.card {
+    background: rgba(255, 255, 255, 0.90);
+
+    backdrop-filter: blur(12px);
+
+    border-radius: 22px;
+
+    padding: 30px;
+
+    margin-bottom: 25px;
+
+    border: 1px solid rgba(204, 251, 241, 0.9);
+
+    box-shadow:
+        0 15px 40px rgba(13, 148, 136, 0.10),
+        0 5px 15px rgba(15, 23, 42, 0.05);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 20px 45px rgba(13, 148, 136, 0.15),
+        0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+
+/* =========================================
+   HEADINGS
+========================================= */
+
+.card h2 {
+    color: #0f766e;
+
+    font-size: 22px;
+
+    margin-bottom: 22px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-heading {
+    margin-top: 32px;
+}
+
+.section-heading span {
+    font-size: 13px;
+    color: #94a3b8;
+    font-weight: normal;
+}
+
+
+/* =========================================
+   INPUT GRIDS
+========================================= */
+
+.matrix {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 14px;
+
+    max-width: 550px;
+}
+
+.vector {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 14px;
+
+    max-width: 550px;
+}
+
+
+/* =========================================
+   INPUT GROUP
+========================================= */
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.input-group label {
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #0f766e;
+}
+
+
+/* =========================================
+   INPUT BOXES
+========================================= */
+
+input {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 2px solid #ccfbf1;
+
+    border-radius: 12px;
+
+    background: #f0fdfa;
+
+    color: #134e4a;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+input:hover {
+    border-color: #5eead4;
+}
+
+input:focus {
+    border-color: #14b8a6;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(20, 184, 166, 0.12);
+
+    transform: translateY(-1px);
+}
+
+input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* =========================================
+   BUTTON AREA
+========================================= */
+
+.buttons {
+    display: flex;
+
+    gap: 14px;
+
+    flex-wrap: wrap;
+
+    margin-top: 28px;
+}
+
+
+/* =========================================
+   ALL BUTTONS
+========================================= */
+
+button {
+    border: none;
+
+    padding: 14px 25px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* =========================================
+   SOLVE BUTTON
+========================================= */
+
+.solve-btn {
+    color: white;
+
+    background: linear-gradient(
+        135deg,
+        #0f766e,
+        #0891b2,
+        #65a30d
+    );
+
+    box-shadow:
+        0 8px 18px rgba(13, 148, 136, 0.30);
+}
+
+.solve-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 25px rgba(13, 148, 136, 0.40);
+}
+
+.solve-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   RESET BUTTON
+========================================= */
+
+.reset-btn {
+    color: #475569;
+
+    background: #f1f5f9;
+
+    border: 1px solid #e2e8f0;
+}
+
+.reset-btn:hover {
+    background: #e2e8f0;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.message {
+    margin-top: 22px;
+
+    padding: 16px 18px;
+
+    border-radius: 13px;
+
+    display: none;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   SUCCESS
+========================================= */
+
+.success {
+    display: block;
+
+    background: linear-gradient(
+        135deg,
+        #ecfdf5,
+        #d1fae5
+    );
+
+    color: #065f46;
+
+    border-left: 5px solid #10b981;
+}
+
+
+/* =========================================
+   WARNING
+========================================= */
+
+.warning {
+    display: block;
+
+    background: linear-gradient(
+        135deg,
+        #fffbeb,
+        #fef3c7
+    );
+
+    color: #92400e;
+
+    border-left: 5px solid #f59e0b;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.error {
+    display: block;
+
+    background: linear-gradient(
+        135deg,
+        #fff1f2,
+        #ffe4e6
+    );
+
+    color: #9f1239;
+
+    border-left: 5px solid #f43f5e;
+}
+
+
+/* =========================================
+   EQUATIONS
+========================================= */
+
+.equations {
+    background:
+        linear-gradient(
+            135deg,
+            #ecfeff,
+            #f0fdfa
+        );
+
+    border-left: 5px solid #0891b2;
+
+    padding: 20px;
+
+    border-radius: 14px;
+
+    line-height: 2.2;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 17px;
+
+    color: #155e75;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-wrapper {
+    overflow-x: auto;
+
+    border-radius: 14px;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 15px;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+}
+
+
+/* TABLE HEADER */
+
+th {
+    padding: 15px;
+
+    color: white;
+
+    background: linear-gradient(
+        135deg,
+        #0f766e,
+        #0891b2
+    );
+
+    font-size: 14px;
+}
+
+
+/* TABLE CELLS */
+
+td {
+    padding: 14px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #ccfbf1;
+
+    font-size: 15px;
+
+    color: #334155;
+}
+
+
+/* ALTERNATING ROWS */
+
+tbody tr:nth-child(even) {
+    background: #f0fdfa;
+}
+
+tbody tr:nth-child(odd) {
+    background: #ffffff;
+}
+
+
+/* TABLE HOVER */
+
+tbody tr:hover {
+    background: #cffafe;
+
+    transition: 0.2s;
+}
+
+
+/* =========================================
+   FINAL ANSWER
+========================================= */
+
+.final-answer {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-top: 22px;
+}
+
+
+/* SOLUTION BOX */
+
+.solution-box {
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ecfeff,
+            #f0fdfa,
+            #f7fee7
+        );
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    border: 2px solid #99f6e4;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* DECORATIVE CIRCLE */
+
+.solution-box::before {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    background: rgba(20, 184, 166, 0.12);
+
+    top: -50px;
+    right: -30px;
+}
+
+
+/* SOLUTION HOVER */
+
+.solution-box:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 25px rgba(13, 148, 136, 0.15);
+}
+
+
+/* SOLUTION LABEL */
+
+.solution-box span {
+    display: block;
+
+    font-size: 15px;
+
+    color: #64748b;
+
+    margin-bottom: 8px;
+
+    font-weight: 600;
+}
+
+
+/* SOLUTION VALUE */
+
+.solution-box strong {
+    font-size: 38px;
+
+    background: linear-gradient(
+        135deg,
+        #0f766e,
+        #0891b2,
+        #65a30d
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* =========================================
+   NOTE
+========================================= */
+
+.note {
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-top: 8px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   HIDDEN
+========================================= */
+
+.hidden {
+    display: none;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .container {
+        width: 94%;
+
+        margin: 25px auto;
+    }
+
+    .header h1 {
+        font-size: 31px;
+    }
+
+    .header p {
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 22px;
+
+        border-radius: 18px;
+    }
+
+    .card h2 {
+        font-size: 19px;
+    }
+
+    .matrix,
+    .vector {
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 8px;
+    }
+
+    input {
+        padding: 11px 8px;
+
+        font-size: 14px;
+    }
+
+    .final-answer {
+        grid-template-columns: 1fr;
+    }
+
+    .solution-box strong {
+        font-size: 34px;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL SCREENS
+========================================= */
+
+@media (max-width: 400px) {
+
+    .matrix,
+    .vector {
+        gap: 6px;
+    }
+
+    .input-group label {
+        font-size: 11px;
+    }
+
+    input {
+        padding: 10px 6px;
+    }
+
+    .buttons button {
+        width: 100%;
+    }
+}
