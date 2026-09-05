@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gauss-Seidel Method Solver</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="header">
+        <h1>Gauss–Seidel Method</h1>
+        <p>Interactive 3 × 3 System of Linear Equations Solver</p>
+    </header>
+
+
+    <!-- INPUT SECTION -->
+
+    <section class="card">
+
+        <h2>1. Enter Coefficient Matrix A</h2>
+
+        <div class="matrix">
+
+            <div class="input-group">
+                <label>a₁₁</label>
+                <input type="number" id="a11" step="any">
+            </div>
+
+            <div class="input-group">
+                <label>a₁₂</label>
+                <input type="number" id="a12" step="any">
+            </div>
+
+            <div class="input-group">
+                <label>a₁₃</label>
+                <input type="number" id="a13" step="any">
+            </div>
+
+            <div class="input-group">
+                <label>a₂₁</label>
+                <input type="number" id="a21" step="any">
+            </div>
+
+            <div class="input-group">
+                <label>a₂₂</label>
+                <input type="number" id="a22" step="any">
+            </div>
+
+            <div class="input-group">
+                <label>a₂₃</label>
+                <input type="number" id="a23" step="any">
+            </div>
+
+            <div class="input-group">
+                <label>a₃₁</label>
+                <input type="number" id="a31" step="any">
+            </div>
+
+            <div class="input-group">
+                <label>a₃₂</label>
+                <input type="number" id="a32" step="any">
+            </div>
+
+            <div class="input-group">
+                <label>a₃₃</label>
+                <input type="number" id="a33" step="any">
+            </div>
+
+        </div>
+
+
+        <h2 class="section-heading">2. Enter RHS Vector B</h2>
+
+        <div class="vector">
+
+            <div class="input-group">
+                <label>b₁</label>
+                <input type="number" id="b1" step="any">
+            </div>
+
+            <div class="input-group">
+                <label>b₂</label>
+                <input type="number" id="b2" step="any">
+            </div>
+
+            <div class="input-group">
+                <label>b₃</label>
+                <input type="number" id="b3" step="any">
+            </div>
+
+        </div>
+
+
+        <h2 class="section-heading">
+            3. Initial Guess
+            <span>(Optional)</span>
+        </h2>
+
+        <div class="vector">
+
+            <div class="input-group">
+                <label>x₀</label>
+                <input
+                    type="number"
+                    id="x0"
+                    step="any"
+                    placeholder="Default: 0"
+                >
+            </div>
+
+            <div class="input-group">
+                <label>y₀</label>
+                <input
+                    type="number"
+                    id="y0"
+                    step="any"
+                    placeholder="Default: 0"
+                >
+            </div>
+
+            <div class="input-group">
+                <label>z₀</label>
+                <input
+                    type="number"
+                    id="z0"
+                    step="any"
+                    placeholder="Default: 0"
+                >
+            </div>
+
+        </div>
+
+        <p class="note">
+            Leave the initial guess blank to automatically use
+            (0, 0, 0).
+        </p>
+
+
+        <div class="buttons">
+
+            <button
+                class="solve-btn"
+                onclick="solveGaussSeidel()"
+            >
+                Solve System
+            </button>
+
+            <button
+                class="reset-btn"
+                onclick="resetAll()"
+            >
+                Reset
+            </button>
+
+        </div>
+
+
+        <div id="message" class="message"></div>
+
+    </section>
+
+
+    <!-- EQUATIONS -->
+
+    <section
+        id="equationCard"
+        class="card hidden"
+    >
+
+        <h2>System of Equations</h2>
+
+        <div
+            id="equations"
+            class="equations"
+        ></div>
+
+    </section>
+
+
+    <!-- ITERATIONS -->
+
+    <section
+        id="iterationCard"
+        class="card hidden"
+    >
+
+        <h2>Gauss–Seidel Iterations</h2>
+
+        <p class="note">
+            Each new value is immediately used in the next calculation.
+        </p>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Iteration</th>
+                        <th>x</th>
+                        <th>y</th>
+                        <th>z</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="iterationBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- FINAL SOLUTION -->
+
+    <section
+        id="solutionCard"
+        class="card hidden"
+    >
+
+        <h2>🎯 Final Solution</h2>
+
+        <p class="note">
+            The converged values are rounded to the nearest whole number.
+        </p>
+
+        <div class="final-answer">
+
+            <div class="solution-box">
+                <span>x =</span>
+                <strong id="finalX">0</strong>
+            </div>
+
+            <div class="solution-box">
+                <span>y =</span>
+                <strong id="finalY">0</strong>
+            </div>
+
+            <div class="solution-box">
+                <span>z =</span>
+                <strong id="finalZ">0</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
